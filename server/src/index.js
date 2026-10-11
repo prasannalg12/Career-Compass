@@ -6,7 +6,17 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS configuration for website and Chrome extension
+// ========================================
+// CORS Configuration
+// ========================================
+
+// Allowed website and extension origins
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+  process.env.EXTENSION_ORIGIN,
+].filter(Boolean);
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -15,28 +25,37 @@ app.use(
         return callback(null, true);
       }
 
-      // Allow CareerCompass local website
-      if (origin === "http://localhost:5173") {
+      // Allow approved websites and extension
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      // Allow Chrome extensions during local development
-      if (origin.startsWith("chrome-extension://")) {
-        return callback(null, true);
-      }
-
-      return callback(null, false);
+      // Block other origins
+      return callback(new Error("Origin not allowed by CORS"));
     },
   })
 );
 
+// ========================================
+// Middleware
+// ========================================
+
 // Parse incoming JSON requests
 app.use(express.json());
 
-// Health check
+// ========================================
+// Health Check
+// ========================================
+
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+  });
 });
+
+// ========================================
+// API Routes
+// ========================================
 
 // Authentication routes
 app.use("/api/auth", require("./routes/auth"));
@@ -62,21 +81,27 @@ app.use("/api/admin", require("./routes/admin"));
 // Practical assignments
 app.use("/api/assignments", require("./routes/assignments"));
 
+// ========================================
+// Global Error Handler
+// ========================================
 
-// Global error handler
 app.use((err, req, res, next) => {
   console.error(err);
 
   res.status(500).json({
-    error: "Something went wrong on our side. Please try again.",
+    error:
+      "Something went wrong on our side. Please try again.",
   });
 });
 
-// Start backend server
+// ========================================
+// Start Backend Server
+// ========================================
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
   console.log(
-    "CareerCompass API on http://localhost:" + port
+    `CareerCompass API running on port ${port}`
   );
 });

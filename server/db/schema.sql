@@ -1,7 +1,5 @@
-DROP TABLE IF EXISTS roadmap_changes, attempts, questions, tasks, milestones, roadmaps,
-  resources, user_skills, career_skills, skills, careers, users CASCADE;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
@@ -12,7 +10,7 @@ CREATE TABLE users (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE careers (
+CREATE TABLE IF NOT EXISTS careers (
   id SERIAL PRIMARY KEY,
   slug TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
@@ -22,13 +20,13 @@ CREATE TABLE careers (
   salary_range TEXT DEFAULT ''
 );
 
-CREATE TABLE skills (
+CREATE TABLE IF NOT EXISTS skills (
   id SERIAL PRIMARY KEY,
   name TEXT UNIQUE NOT NULL,
   category TEXT NOT NULL
 );
 
-CREATE TABLE career_skills (
+CREATE TABLE IF NOT EXISTS career_skills (
   career_id INT REFERENCES careers(id) ON DELETE CASCADE,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
   required_level INT NOT NULL CHECK (required_level BETWEEN 1 AND 5),
@@ -36,7 +34,7 @@ CREATE TABLE career_skills (
   PRIMARY KEY (career_id, skill_id)
 );
 
-CREATE TABLE user_skills (
+CREATE TABLE IF NOT EXISTS user_skills (
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
   level INT NOT NULL CHECK (level BETWEEN 0 AND 5),
@@ -45,7 +43,7 @@ CREATE TABLE user_skills (
   PRIMARY KEY (user_id, skill_id)
 );
 
-CREATE TABLE resources (
+CREATE TABLE IF NOT EXISTS resources (
   id SERIAL PRIMARY KEY,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
@@ -55,7 +53,7 @@ CREATE TABLE resources (
   est_hours INT NOT NULL DEFAULT 3
 );
 
-CREATE TABLE roadmaps (
+CREATE TABLE IF NOT EXISTS roadmaps (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   career_id INT REFERENCES careers(id) ON DELETE CASCADE,
@@ -63,7 +61,7 @@ CREATE TABLE roadmaps (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE milestones (
+CREATE TABLE IF NOT EXISTS milestones (
   id SERIAL PRIMARY KEY,
   roadmap_id INT REFERENCES roadmaps(id) ON DELETE CASCADE,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
@@ -72,7 +70,7 @@ CREATE TABLE milestones (
   status TEXT NOT NULL DEFAULT 'todo' CHECK (status IN ('todo','done'))
 );
 
-CREATE TABLE tasks (
+CREATE TABLE IF NOT EXISTS tasks (
   id SERIAL PRIMARY KEY,
   milestone_id INT REFERENCES milestones(id) ON DELETE CASCADE,
   resource_id INT REFERENCES resources(id) ON DELETE SET NULL,
@@ -84,7 +82,7 @@ CREATE TABLE tasks (
   status TEXT NOT NULL DEFAULT 'todo' CHECK (status IN ('todo','done','skipped'))
 );
 
-CREATE TABLE questions (
+CREATE TABLE IF NOT EXISTS questions (
   id SERIAL PRIMARY KEY,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
   level INT NOT NULL CHECK (level BETWEEN 1 AND 5),
@@ -93,7 +91,7 @@ CREATE TABLE questions (
   correct_index INT NOT NULL
 );
 
-CREATE TABLE attempts (
+CREATE TABLE IF NOT EXISTS attempts (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
@@ -101,8 +99,8 @@ CREATE TABLE attempts (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
--- Every automatic change to a roadmap is logged here so the UI can explain it.
-CREATE TABLE roadmap_changes (
+-- Record automatic roadmap changes so the UI can explain them.
+CREATE TABLE IF NOT EXISTS roadmap_changes (
   id SERIAL PRIMARY KEY,
   roadmap_id INT REFERENCES roadmaps(id) ON DELETE CASCADE,
   kind TEXT NOT NULL,
@@ -110,6 +108,11 @@ CREATE TABLE roadmap_changes (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_tasks_milestone ON tasks(milestone_id);
-CREATE INDEX idx_milestones_roadmap ON milestones(roadmap_id);
-CREATE INDEX idx_user_skills_user ON user_skills(user_id);
+CREATE INDEX IF NOT EXISTS idx_tasks_milestone
+  ON tasks(milestone_id);
+
+CREATE INDEX IF NOT EXISTS idx_milestones_roadmap
+  ON milestones(roadmap_id);
+
+CREATE INDEX IF NOT EXISTS idx_user_skills_user
+  ON user_skills(user_id);
