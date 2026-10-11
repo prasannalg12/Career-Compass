@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+  <title>CareerCompass</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="logo">✦</div>
+      <div>
+        <h1>CareerCompass</h1>
+        <p>Your learning companion</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h2>Welcome to CareerCompass</h2>
+        <p>
+          Discover your career path, improve your skills,
+          and track your learning journey.
+        </p>
+      </section>
+
+      <section id="loginSection">
+        <h3>Sign In</h3>
+
+        <form id="loginForm">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <button type="submit" id="loginButton">
+            Sign In
+          </button>
+        </form>
+
+        <p id="loginMessage" role="status"></p>
+      </section>
+
+      <section id="dashboardSection" hidden>
+        <h3 id="userGreeting">My Dashboard</h3>
+
+       
+<div class="feature-card">
+  <h4>My Career Roadmap</h4>
+
+  <p id="roadmapCareer">
+    Loading your career roadmap...
+  </p>
+
+  <div id="roadmapDetails" hidden>
+    <p id="roadmapWeek"></p>
+
+    <div class="progress-track">
+      <div id="roadmapProgressBar"></div>
+    </div>
+
+    <p id="roadmapProgressText"></p>
+    <p id="roadmapMilestones"></p>
+  </div>
+</div>
+
+
+        
+<div class="feature-card">
+  <h4>My Skills</h4>
+  <p id="skillsSummary">Loading your skills...</p>
+  <div id="skillsList"></div>
+</div>
+
+
+        
+<div class="feature-card">
+  <h4>My Assignments</h4>
+  <p id="assignmentSummary">
+    Loading your assignments...
+  </p>
+</div>
+
+
+        <button id="openWebsite" type="button">
+          Open CareerCompass Website
+        </button>
+
+        <button id="logoutButton" type="button">
+          Sign Out
+        </button>
+      </section>
+    </main>
+
+    <footer>
+      <p>CareerCompass © 2026</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

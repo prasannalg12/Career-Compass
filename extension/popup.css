@@ -1,0 +1,230 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 360px;
+  min-height: 420px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7fc;
+  color: #17233c;
+}
+
+.app {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  font-size: 26px;
+}
+
+.header h1 {
+  font-size: 21px;
+  margin: 0;
+}
+
+.header p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 4px 0 0;
+}
+
+.welcome {
+  padding: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: white;
+  margin-bottom: 20px;
+}
+
+.welcome h2 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.welcome p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+  color: #e0e7ff;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 0 0 16px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  font-size: 14px;
+  outline: none;
+  background: white;
+}
+
+input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#loginMessage {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 10px;
+}
+
+.feature-card {
+  background: white;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.feature-card h4 {
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+
+.feature-card p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+#logoutButton {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+#logoutButton:hover {
+  background: #cbd5e1;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.progress-track {
+  width: 100%;
+  height: 9px;
+  margin: 12px 0;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#roadmapProgressBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+#roadmapWeek,
+#roadmapProgressText,
+#roadmapMilestones {
+  font-size: 12px;
+  color: #64748b;
+  margin: 8px 0;
+}
+
+/* My Skills Section */
+
+#skillsList {
+  margin-top: 12px;
+}
+
+.skill-item {
+  margin-bottom: 14px;
+}
+
+.skill-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.skill-heading span:first-child {
+  font-weight: 600;
+}
+
+.skill-heading span:last-child {
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.skill-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
